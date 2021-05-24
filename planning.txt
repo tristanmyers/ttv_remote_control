@@ -1,0 +1,41 @@
+- maybe incorporate the twitch api so the extension can get the current streamer being watched and display that on the app.
+- be able to change twitch channels
+    * input name of streamer or give list of channels the user is following via api.
+    * send that to the server, send that to the extension and extension will most likely have to change the url in the browser.
+- be able to play/pause
+    * extension gets request from server and finds the play/pause button on the page and click the button with js click()
+- be able to adjust volume
+    * see if extension can find the volume values within the html and change it that way.
+- be able to theater mode and fullscreen.
+    * pretty much just find the elements and click()
+
+- create login system so that extension can be linked up with mobile remote.
+    * can maybe use twitch account
+    * potential problem with using twitch account is that it needs to only control the current session and not multiple sessions
+    say if the user is logged in on livingroom-tv and windows-pc and watching two seperate streams the extension needs to control only one
+    of the sessions.
+
+- when the user presses a button on the remote app/website how will that send
+the action over to the extension?
+    * remote and extension will be logged into the same account maybe the server will
+    send the action to the extension and the extension will need to verify
+    that the user account on both ends are the same.
+    * when button is pressed makes a post request to extension. Include user account name in post request and
+    verify the account name from controller to extension is the same.
+    * button may need be apart of a form
+    * the extensions response is to call function relating to the post request from the server onto twitch.
+    * possible solution is server host remote controller and extension, they talk to each other by sending post and response request through the same server. 
+	
+- extensions to be able to see the request being recieved on the server
+    * seems like a service worker will be needed as a the man in the middle since extensions are client sided only.
+    * how will the service worker watch the server and how will the server tell the service worker when it gets a request
+    * service worker can send a get reqest to a server route, take the response and add it the cache.
+    * is cache the right thing to here? can my extension access the cache?
+    * use a database to store the most recent post body and extension gets that from the database probably from a get request 
+    to server and server retrieves that and send that in response extension will need to check to make sure that its not the same action that 
+    is already did via time or something.
+    * i think i am going to have to use mongodb push the username and user id to the database and use the unique values mogodb generates to check if its the
+    same user on both ends and grab button presses that way.
+
+how does the extension know when to send get request
+Remote Control -> POST body with action -> Server <- GET body <- Extension Content Script

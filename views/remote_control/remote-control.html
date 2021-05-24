@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitch Controller</title>
+    <script src="/views/remote_control/js/remoteControl.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/views/remote_control/css/remote-control.css" type="text/css">
+</head>
+<body>
+    <header>
+        <h1>TTV Remote Control</h1>
+        <a href="/login" id="login">Login with twitch</a>
+    </header>
+    <button id="play-pause" onclick="sendPost(localURL, 'PLAY')">Play/Pause</button>
+</body>
+</html>
