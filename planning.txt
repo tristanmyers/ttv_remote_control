@@ -34,8 +34,11 @@ the action over to the extension?
     * use a database to store the most recent post body and extension gets that from the database probably from a get request 
     to server and server retrieves that and send that in response extension will need to check to make sure that its not the same action that 
     is already did via time or something.
-    * i think i am going to have to use mongodb push the username and user id to the database and use the unique values mogodb generates to check if its the
-    same user on both ends and grab button presses that way.
+    * i think i am going to have to use mongodb push the username and user id to the database and use the unique values mogodb generates to check if its the same user on both ends and grab button presses that way.
 
 how does the extension know when to send get request
-Remote Control -> POST body with action -> Server <- GET body <- Extension Content Script
+Remote Control -> POST body with action -> Server <- GET body <- Extension Background Script -> Extension content script
+- this strategy would mean that the extension would have to constantly listen for an event on the server
+    - which i don't think is possible
+- somehow i need the server to send a post request to the extension
+ - which sounds like i need to have a simple server running from the extension just to listen for post request from the main server.
