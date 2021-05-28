@@ -1,16 +1,23 @@
+chrome.runtime.onInstalled.addListener(() => {
+	console.log('TTVRC: installed');
+});
+
+// registering service worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('sw.js')
+      .then(reg => console.log(`Service worker: Registered with scope: ${reg.scope}`))
+      .catch(err => console.log(`Service worker: ${err}`));
+  })
+};
+
 // Call install event
 self.addEventListener('install', (e) => {
     console.log('Service Worker: Installed');
-})
+});
 
 // Call activate event
 self.addEventListener('activate', (e) => {
-    console.log('Service Worker: Activate');
-})
-
-`caches` in window;
-caches.open('cacheName').then(cache => {
-    cache.add('http://localhost:8000/send_action').then(() => {
-        console.log('data cached');
-    });
+    console.log('Service Worker: Activated');
 });
