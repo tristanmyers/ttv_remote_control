@@ -1,16 +1,22 @@
 {
-    "manifest_version": 2,
-    "name": "twitch remote control",
+    "manifest_version": 3,
+    "name": "Twitch TV Remote Control (TTVRC)",
+    "description": "Control twitch tv media player remotely",
     "version": "0.1",
 
     "permissions": [
-        "tabs",
-        "activeTab",
-        "storage",
+        "scripting"
+    ],
+
+    "host_permissions": [
         "https://twitch.tv/*",
         "https://*.twitch.tv/*",
         "http://localhost:8000/*"
     ],
+
+    "background": {
+        "service_worker": "sw.js"
+    },
 
     "content_scripts": [
         {
@@ -19,15 +25,15 @@
                 "https://*.twitch.tv/*",
                 "http://localhost:8000/*"
             ],
-            "run_at": "document_start",
-
+            
             "js": [
-                "/extension/content.js"
+                "/scripts/content.js"
             ]
         }
     ],
 
-    "browser_action": {
-        "default_icon": "/extension/remote_control.png"
+    "action": {
+        "default_icon": "remote_control.png",
+        "default_popup": "popup.html"
     }
 }
