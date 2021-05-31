@@ -21,3 +21,11 @@ self.addEventListener('install', (e) => {
 self.addEventListener('activate', (e) => {
     console.log('Service Worker: Activated');
 });
+
+// inject script everytime a post request from server to change state of player
+chrome.action.onClicked.addListener((tab) => {
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    files: ['/scripts/content.js']
+  });
+});
