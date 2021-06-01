@@ -13,7 +13,7 @@ const { DateTime } = require('luxon');
 
 // const template = handlebars.templates;
 
-const app = express.app();
+const app = express();
 
 // will need to use this if i use forms for remote-controller buttons 
 // app.use(express.urlencoded({ extended : true }));
@@ -138,10 +138,10 @@ app.route('/auth_callback')
     })
 
 app.get('/getUser', () => {
+
     let twitchUserObj = {
         userName: `${twitchUserName}`
     }
-
     res.send(`${twitchUserObj.twitchUserName}`);
 })
 
