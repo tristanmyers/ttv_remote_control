@@ -2,20 +2,20 @@
   "name": "twitch-television-app",
   "version": "0.0.1",
   "description": "mobile remote control for ttv ",
-  "main": "/serverjscopy/server.js",
+  "main": "server/server.js",
   "scripts": {
-    "start": "node server/server.js"
+    "start": "node server/server.js "
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tristanmyers/twitch-television-app.git"
+    "url": "git+https://github.com/tristanmyers/ttv_remote_control.git"
   },
   "author": "tristan myers",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tristanmyers/twitch-television-app/issues"
+    "url": "https://github.com/tristanmyers/ttv_remote_control/issues"
   },
-  "homepage": "https://github.com/tristanmyers/twitch-television-app#readme",
+  "homepage": "https://github.com/tristanmyers/ttv_remote_control#readme",
   "dependencies": {
     "axios": "^0.21.1",
     "dotenv": "^9.0.2",

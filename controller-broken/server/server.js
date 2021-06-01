@@ -2,7 +2,7 @@
 // THEY COMMUNICATE OVER THE SAME SERVER
 const express = require('express');
 
-const rcRoutes = require('../routes/RCRoutes');
+const rcRoutes = require('../routes/rcRoutes');
 
 const app = express();
 

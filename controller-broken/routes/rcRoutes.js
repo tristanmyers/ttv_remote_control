@@ -12,16 +12,16 @@ const { DateTime } = require('luxon');
 // loading dynamic files part of remote-control.html
 router.use(express.static('views/remote_control/'));
 
-router.get('/remote_control', (req) => {
-    req.sendFile('remote_control/remote-control.html', {root : 'views/'});
+router.get('/remote_control', (res) => {
+    res.sendFile('remote_control/remote-control.html', {root : 'views/'});
 })
 
- // twitch auth
-// router.get('/login', (res) => {
-//     twitch.redirectLogin();
-// });
+//  twitch auth
+router.get('/login', (res) => {
+    twitch.redirectLogin();
+});
 
-// router.get('/auth_callback', (res));
+router.get('/auth_callback', (res));
 
 router.get('/getUser', () => {
     let twitchUserObj = {
