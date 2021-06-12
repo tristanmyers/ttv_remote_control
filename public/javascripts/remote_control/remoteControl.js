@@ -1,5 +1,5 @@
-const localURL = process.env.DEV_LOCAL_URL;
-const publicURL = process.env.DEV_PUBLIC_URL;
+const localURL = 'process.env.DEV_LOCAL_URL';
+const publicURL = 'process.env.DEV_PUBLIC_URL';
 
 const validActions = ['PLAY', 'PAUSE', 'REFRESH', 'FULLSCREEN', 'THEATER', 'CHANGECHANNEL'];
 

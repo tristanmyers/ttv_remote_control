@@ -42,3 +42,6 @@ Remote Control -> POST body with action -> Server <- GET body <- Extension Backg
     - which i don't think is possible
 - somehow i need the server to send a post request to the extension
  - which sounds like i need to have a simple server running from the extension just to listen for post request from the main server.
+
+ - extension sends a get request to the server, server saves id that sent post from remote control and when the
+the server recieves get request, it matches id and sends the latest action from that id. 
