@@ -4,15 +4,9 @@
 require('dotenv').config();
 
 const express = require('express');
-const path = require('path');
-const { DateTime } = require('luxon');
-const { MongoClient } = require('mongodb'); 
 // const handlebars = require('handlebars');
 
 // const template = handlebars.templates;
-
-const url = `mongodb+srv://admin:${process.env.MONGODB_PASS}@ttvrccluster.qpvms.mongodb.net/recentActions?retryWrites=true&w=majority`;
-const client = new MongoClient(url, { useUnifiedTopology: true });
 
 const homeRouter = require('./routes/home');
 const remoteControlRouter = require('./routes/remoteControl');
