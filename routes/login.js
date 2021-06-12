@@ -21,9 +21,9 @@ router.route('/auth_callback')
         };
         
         try {
-            accessTokenResponse = await axios.post(`https://id.twitch.tv/oauth2/token?client_id=${process.env.TWITCH_CLIENT_ID}&client_secret=${process.env.TWITCH_CLIENT_SECRET}&code=${code}&grant_type=authorization_code&redirect_uri=${process.env.TWITCH_REDIRECT_URI}`, options);
+            var accessTokenResponse = await axios.post(`https://id.twitch.tv/oauth2/token?client_id=${process.env.TWITCH_CLIENT_ID}&client_secret=${process.env.TWITCH_CLIENT_SECRET}&code=${code}&grant_type=authorization_code&redirect_uri=${process.env.TWITCH_REDIRECT_URI}`, options);
             
-            accessToken = accessTokenResponse.data.access_token;
+            var accessToken = accessTokenResponse.data.access_token;
             req.redirect('/remote_control');
         
         } catch (error) {
@@ -32,7 +32,7 @@ router.route('/auth_callback')
         
         
         // refreshing access token if it expires_in 1000 or less
-        refreshToken = accessTokenResponse.data.refresh_token;
+        var refreshToken = accessTokenResponse.data.refresh_token;
         if (accessTokenResponse.data.expires_in <= 1000) {
             try { 
                 const refreshTokenRes = await axios.post(`https://id.twitch.tv/oauth2/token--data-urlencode?grant_type=refresh_token&refresh_token=${refreshToken}&client_id=${process.env.TWITCH_CLIENT_ID}&client_secret=${process.env.TWITCH_CLIENT_SECRET}`);
@@ -45,63 +45,35 @@ router.route('/auth_callback')
             console.log('Token does not need refreshing.');
         }
         
-            async function getCurrentUser() {
         // getting twitch user data
-        options = { 
-            headers: {
-                'accept': 'application/json',
-                'Authorization': 'Bearer ' + accessToken,
-                'Client-Id': `${process.env.TWITCH_CLIENT_ID}`
+        async function getCurrentUser() {
+            options = { 
+                headers: {
+                    'accept': 'application/json',
+                    'Authorization': 'Bearer ' + accessToken,
+                    'Client-Id': `${process.env.TWITCH_CLIENT_ID}`
+                }
+            };
+            
+            try {
+                userData = await axios.get('https://api.twitch.tv/helix/users', options);
+
+                twitchUserID = await userData.data.data[0]['id'];
+                twitchUserName = await userData.data.data[0]['display_name'];
+
+                console.log(`${twitchUserName} successfully logged in!`);
+                req.end();
+            
+            } catch (error) {
+                console.error(`Getting username error: ${error.message}`);
             }
-        };
-        
-        try {
-            userData = await axios.get('https://api.twitch.tv/helix/users', options);
 
-            twitchUserID = await userData.data.data[0]['id'];
-            twitchUserName = await userData.data.data[0]['display_name'];
-
-            console.log(`${twitchUserName} successfully logged in!`);
-            req.end();
-        
-        } catch (error) {
-            console.error(`Getting username error: ${error.message}`);
-        }
-
-        if (userData['status'] == 200) {
-            // this is where i render the username with mustaches onto the html
-            // or i use ejs to create and if statement inside the html to check whether userData came back with a repsonse of 200 and render username
-        } else {
-            console.log('Status code for getting userData promise response was something other than 200');
-        }
-    }
-        // getting twitch user data
-        options = { 
-            headers: {
-                'accept': 'application/json',
-                'Authorization': 'Bearer ' + accessToken,
-                'Client-Id': `${process.env.TWITCH_CLIENT_ID}`
+            if (userData['status'] == 200) {
+                // this is where i render the username with mustaches onto the html
+                // or i use ejs to create and if statement inside the html to check whether userData came back with a repsonse of 200 and render username
+            } else {
+                console.log('Status code for getting userData promise response was something other than 200');
             }
-        };
-        
-        try {
-            userData = await axios.get('https://api.twitch.tv/helix/users', options);
-
-            twitchUserID = await userData.data.data[0]['id'];
-            twitchUserName = await userData.data.data[0]['display_name'];
-
-            console.log(`${twitchUserName} successfully logged in!`);
-            req.end();
-        
-        } catch (error) {
-            console.error(`Getting username error: ${error.message}`);
-        }
-
-        if (userData['status'] == 200) {
-            // this is where i render the username with mustaches onto the html
-            // or i use ejs to create and if statement inside the html to check whether userData came back with a repsonse of 200 and render username
-        } else {
-            console.log('Status code for getting userData promise response was something other than 200');
         }
     })
 
